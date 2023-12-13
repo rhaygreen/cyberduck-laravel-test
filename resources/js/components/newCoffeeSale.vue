@@ -1,7 +1,7 @@
 <template>
     <div>
       <Vueform columns="16">
-
+        <HiddenElement name="product" value="1" />
         <TextElement
             :columns="{ container: 3, label: 12, wrapper: 12 }"
             :attrs="{ autofocus: true }"
