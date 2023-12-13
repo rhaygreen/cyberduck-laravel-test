@@ -1,7 +1,14 @@
-require('./bootstrap');
+import './bootstrap';
+import { createApp } from 'vue';
+import Vueform from '@vueform/vueform'
+import vueformConfig from './../../vueform.config'
+import newCoffeeSale from './components/newCoffeeSale.vue';
+import existingCoffeeSales from './components/existingCoffeeSales.vue';
 
-import Alpine from 'alpinejs';
+const app = createApp({});
+app.use(Vueform, vueformConfig)
 
-window.Alpine = Alpine;
+app.component('newCoffeeSale', newCoffeeSale);
+app.component('existingCoffeeSales', existingCoffeeSales);
 
-Alpine.start();
+app.mount("#app");
