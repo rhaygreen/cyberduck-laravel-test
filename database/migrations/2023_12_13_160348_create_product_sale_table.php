@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('product_sale', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_product')->constrained();
-            $table->foreignId('id_sale')->constrained();
+            $table->foreignId('product_id')->constrained();
+            $table->foreignId('sale_id')->constrained();
             $table->double('quantity',8,2,true);
-            $table->integer('unit_cost',false, true);
-            $table->integer('price',false,true);
+            $table->integer('unit_price',false, true);
+            $table->integer('selling_price',false,true);
             $table->timestamps();
+
+
         });
     }
 
