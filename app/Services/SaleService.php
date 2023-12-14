@@ -28,7 +28,7 @@ class SaleService
             $productSale->sale_id = $sale->id;
             $productSale->product_id = $dto->getProduct()->id;
             $productSale->quantity = $dto->getQuantity();
-            $productSale->unit_price = $dto->getUnitPrice();
+            $productSale->unit_cost = $dto->getUnitPrice();
             $productSale->selling_price = $sellingPrice;
 
             $productSale->save();
