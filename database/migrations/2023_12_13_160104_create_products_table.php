@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->char('name',100);
             $table->double('margin',6,2,true);
+            $table->integer('shipping_cost',false,true);
             $table->timestamps();
         });
     }
