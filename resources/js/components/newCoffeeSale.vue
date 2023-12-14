@@ -45,6 +45,8 @@ export default {
             .then((response) => {
                 this.data.button_disabled = false;
                 this.button.text = 'Record Sale';
+                let now = new Date();
+                this.$emit('sale-made', now.valueOf())
             })
             .catch((error) => {
                 alert('Sorry, something went wrong. Please try again');
@@ -80,7 +82,10 @@ export default {
         />
 
         <TextElement
-            :columns="{ container: 3, label: 12, wrapper: 12 }"
+            :columns="{ container: 3, label: 12, wrapper: 12}"
+            :add-class="{
+            input: 'pt-6'
+            }"
             name="unit_cost"
             id="unit_cost"
             size="md"
@@ -100,7 +105,7 @@ export default {
          />
 
         <ButtonElement
-            :columns="{ container: 3, label: 12, wrapper: 12 }"
+            :columns="{ container: 2, label: 12, wrapper: 12 }"
             name="record_sale"
             id="record_sale"
             :disabled="button_disabled"

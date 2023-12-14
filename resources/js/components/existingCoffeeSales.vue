@@ -1,3 +1,43 @@
+<script>
+import axios from 'axios';
+import watch from 'vue';
+
+export default {
+  props: ['message'],
+  data() {
+    return {
+        data: {
+            sales: []
+        },
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  watch: {
+    message: function() {
+        this.fetchData();
+    }
+  },
+  methods: {
+    async fetchData() {
+        const url = '/sale'
+            await axios.get(url)
+            .then((response) => {
+                console.log(response.data);
+                this.data.sales = response.data
+
+            })
+            .catch(function (error){
+                alert('Sorry, something went wrong. Please try again');
+                console.log(error);
+            });
+    }
+  }
+
+};
+
+</script>
 <template>
     <h1>Existing coffee sales</h1>
     <div class="relative overflow-x-auto">
@@ -10,15 +50,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    100
+                <tr v-for="sale in data.sales" :key="sale.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th v-text="sale.product_sales[0].quantity" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
                 </th>
-                <td class="px-6 py-4">
-                    £2.50
+                <td v-text="'£' + Number(sale.product_sales[0].unit_cost.value).toFixed(2)" class="px-6 py-4">
+
                 </td>
-                <td class="px-6 py-4">
-                    £250
+                <td v-text="'£' + Number(sale.product_sales[0].selling_price.value).toFixed(2)" class="px-6 py-4">
+
                 </td>
             </tr>
             </tbody>

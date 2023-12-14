@@ -1,14 +1,13 @@
 import './bootstrap';
-import { createApp } from 'vue';
+import { createApp} from 'vue';
 import Vueform from '@vueform/vueform'
 import vueformConfig from './../../vueform.config'
-import newCoffeeSale from './components/newCoffeeSale.vue';
-import existingCoffeeSales from './components/existingCoffeeSales.vue';
+import coffeeSalesWrapper from './components/coffeeSalesWrapper.vue';
+
 
 const app = createApp({});
-app.use(Vueform, vueformConfig)
+app.use(Vueform, vueformConfig);
 
-app.component('newCoffeeSale', newCoffeeSale);
-app.component('existingCoffeeSales', existingCoffeeSales);
+app.component('coffeeSalesWrapper', coffeeSalesWrapper);
 
 app.mount("#app");
