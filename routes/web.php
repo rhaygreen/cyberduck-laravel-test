@@ -25,7 +25,7 @@ Route::get('/sales', function () {
     return view('coffee_sales');
 })->middleware(['auth'])->name('coffee.sales');
 
-Route::get('/product/{product}/quantity/{quantity}/unitprice/{unitPrice}',
+Route::get('/product/{product}/calculateSellingPrice',
     [ProductController::class, 'calculateSellingPrice']
 )->middleware(['auth'])->name('product.selling.price');
 

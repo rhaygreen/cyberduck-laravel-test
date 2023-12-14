@@ -16,17 +16,29 @@ export default {
     async loadPrice() {
         this.data.selling_price = '';
         if(!isNaN(parseFloat(this.data.quantity)) && !isNaN(parseFloat(this.data.unit_cost))) {
-            const url = '/product/1/quantity/'+this.data.quantity+'/unitprice/'+this.data.unit_cost
-            //@todo this requires error handling.
-            await axios.get(url).then((response) => this.data.selling_price = response.data );
+            const url = '/product/'+this.data.product_id+'/calculateSellingPrice?quantity='+this.data.quantity+'&unit_price='+this.data.unit_cost
+            await axios.get(url)
+            .then((response) => this.data.selling_price = response.data )
+            .catch(function (error){
+                alert('Sorry, something went wrong. Please try again');
+                console.log(error.toJSON());
+            });
         }
     },
     async recordSale() {
         if(!isNaN(parseFloat(this.data.quantity)) && !isNaN(parseFloat(this.data.unit_cost))) {
-            alert('success');
+            //add debounce to the button. Remove once request returns.
+
+            const url = '/sale/store';
+            await axios.post(url)
+            .then((response) => this.data.selling_price = response.data )
+            .catch(function (error){
+                alert('Sorry, something went wrong. Please try again');
+                console.log(error.toJSON());
+            });
         }
         else {
-            //@todo this would be better as a vue form modal
+            //@todo this would be better as a modal
             alert('Please provide a quantity and unit price');
         }
     }
@@ -39,7 +51,7 @@ export default {
 <template>
     <div>
       <Vueform columns="16" v-model="data" sync>
-        <HiddenElement name="product" value="1" v-model="product_id"/>
+        <HiddenElement name="product_id" value="1" v-model="product_id"/>
         <TextElement
             :columns="{ container: 3, label: 12, wrapper: 12 }"
             :attrs="{ autofocus: true }"

@@ -22,7 +22,8 @@ class CalculateSellingPriceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'quantity' => 'required|numeric',
+            'unit_price' => 'required|numeric'
         ];
     }
 }

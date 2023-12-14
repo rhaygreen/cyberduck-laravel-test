@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function calculateSellingPrice(CalculateSellingPriceRequest $request, Product $product)
     {
         $service = new ProductService();
-        $unitPrice = new Money($request->unitPrice, new Currency('GBP'), true);
+        $unitPrice = new Money(trim($request->unit_price,".,"), new Currency('GBP'), true);
 
         $dto = new SellingPriceCalculationDTO($product, $request->quantity, $unitPrice);
         return $service->calculateSellingPrice($dto)->format();
