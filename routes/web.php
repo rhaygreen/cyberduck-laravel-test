@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::get('/sales', function () {
     return view('coffee_sales');
 })->middleware(['auth'])->name('coffee.sales');
 
-Route::get('/product/{id}/quantity/{quantity}/unitprice/{unitPrice}',
+Route::get('/product/{product}/quantity/{quantity}/unitprice/{unitPrice}',
     [ProductController::class, 'calculateSellingPrice']
 )->middleware(['auth'])->name('product.selling.price');
 
