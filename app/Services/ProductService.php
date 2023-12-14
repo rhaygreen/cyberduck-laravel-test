@@ -21,6 +21,6 @@ class ProductService
 
         $sellingPrice = ($cost / (1 - $formattedMargin)) + $product->shipping_cost->getAmount();
 
-        return new Money($sellingPrice, new Currency('GBP'), true);
+        return new Money($sellingPrice, new Currency('GBP'));
     }
 }
