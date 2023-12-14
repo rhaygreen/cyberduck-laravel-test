@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use App\Models\Product;
+use App\Http\Controllers\SaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,14 @@ Route::redirect('/dashboard', '/sales');
 Route::get('/sales', function () {
     return view('coffee_sales');
 })->middleware(['auth'])->name('coffee.sales');
+
+Route::get('/sale',
+    [SaleController::class, 'index']
+)->middleware(['auth'])->name('sale.index');
+
+Route::post('/sale/store',
+    [SaleController::class, 'store']
+)->middleware(['auth'])->name('sale.store');
 
 Route::get('/product/{product}/calculateSellingPrice',
     [ProductController::class, 'calculateSellingPrice']
