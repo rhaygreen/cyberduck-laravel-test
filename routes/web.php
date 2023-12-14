@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,10 @@ Route::redirect('/dashboard', '/sales');
 Route::get('/sales', function () {
     return view('coffee_sales');
 })->middleware(['auth'])->name('coffee.sales');
+
+Route::get('/product/{id}/quantity/{quantity}/unitprice/{unitPrice}',
+    [ProductController::class, 'calculateSellingPrice']
+)->middleware(['auth'])->name('product.selling.price');
 
 Route::get('/shipping-partners', function () {
     return view('shipping_partners');
