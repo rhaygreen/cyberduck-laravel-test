@@ -2,16 +2,25 @@
 
 namespace App\Services;
 
+use App\Models\Product;
+use Akaunting\Money\Money;
+use Akaunting\Money\Currency;
+use App\DTOs\SellingPriceCalculationDTO;
 
 class ProductService
 {
     /**
      * Establish the selling price for a given product and quantity
-     * @param int $productId
-     * @param string $quantity amount of product, expected as xx.yy. Done as string to avoid issues with floating point precision.
      */
-    public function calculateSellingPrice(int $productId, string $quantity) :string
+    public function calculateSellingPrice(SellingPriceCalculationDTO $dto) :Money
     {
-        return '1.00';
+        $product = $dto->getProduct();
+        $formattedMargin = $product->margin / 100;
+
+        $cost = $dto->getQuantity() * $dto->getUnitPrice()->getAmount();
+
+        $sellingPrice = ($cost / (1 - $formattedMargin)) + $product->shipping_cost->getAmount();
+
+        return new Money($sellingPrice, new Currency('GBP'), true);
     }
 }
