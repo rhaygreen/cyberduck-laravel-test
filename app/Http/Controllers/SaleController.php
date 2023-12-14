@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CalculateSellingPriceRequest;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Models\Product;
+use App\Models\ProductSale;
 use App\Models\Sale;
 use App\Services\SaleService;
-use App\Models\Product;
 use Akaunting\Money\Currency;
 use Akaunting\Money\Money;
 use App\DTOs\ProductQuantityPriceDTO;
@@ -19,7 +20,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        return Sale::with('productSales', 'products')->orderBy('created_at', 'desc')->get();
     }
 
     /**
