@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Services\ProductService;
 use Akaunting\Money\Currency;
 use Akaunting\Money\Money;
-use App\DTOs\SellingPriceCalculationDTO;
+use App\DTOs\ProductQuantityPriceDTO;
 
 class ProductController extends Controller
 {
@@ -15,9 +15,9 @@ class ProductController extends Controller
     public function calculateSellingPrice(CalculateSellingPriceRequest $request, Product $product)
     {
         $service = new ProductService();
-        $unitPrice = new Money(trim($request->unit_price,".,"), new Currency('GBP'), true);
+        $unitCost = new Money(trim($request->unit_cost,".,"), new Currency('GBP'), true);
 
-        $dto = new SellingPriceCalculationDTO($product, $request->quantity, $unitPrice);
+        $dto = new ProductQuantityPriceDTO($product, $request->quantity, $unitCost);
         return $service->calculateSellingPrice($dto)->format();
     }
 }

@@ -7,6 +7,10 @@ use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
 use App\Models\Sale;
 use App\Services\SaleService;
+use App\Models\Product;
+use Akaunting\Money\Currency;
+use Akaunting\Money\Money;
+use App\DTOs\ProductQuantityPriceDTO;
 
 class SaleController extends Controller
 {
@@ -31,8 +35,11 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
+        $product = Product::findOrFail($request->id_product);
         $service = new SaleService();
-        return $service->createSale($request);
+        $unitCost= new Money(trim($request->unit_cost,".,"), new Currency('GBP'), true);
+        $dto = new ProductQuantityPriceDTO($product, $request->quantity, $unitCost);
+        return $service->createSale($dto);
     }
 
     /**

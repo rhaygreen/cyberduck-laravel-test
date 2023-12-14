@@ -5,20 +5,19 @@ namespace App\Services;
 use App\Models\Product;
 use Akaunting\Money\Money;
 use Akaunting\Money\Currency;
-use App\DTOs\SellingPriceCalculationDTO;
+use App\DTOs\ProductQuantityPriceDTO;
 
 class ProductService
 {
     /**
      * Establish the selling price for a given product and quantity
      */
-    public function calculateSellingPrice(SellingPriceCalculationDTO $dto) :Money
+    public function calculateSellingPrice(ProductQuantityPriceDTO $dto) :Money
     {
         $product = $dto->getProduct();
         $formattedMargin = $product->margin / 100;
 
         $cost = $dto->getQuantity() * $dto->getUnitPrice()->getAmount();
-
         $sellingPrice = ($cost / (1 - $formattedMargin)) + $product->shipping_cost->getAmount();
 
         return new Money($sellingPrice, new Currency('GBP'));
