@@ -11,7 +11,4 @@ We took the liberty of installing the following for you:
 6. **larastan/larastan** - For error catching (`./vendor/bin/phpstan analyse`)
 
 
-Added npm install vue@next vue-loader@next
-Added npm install @vueform/vueform
-npm install sass-loader -D
-npm install node-sass -D
+Added npm install vue@next vue-loader@next,  @vueform/vueform, sass-loader, node-sass
