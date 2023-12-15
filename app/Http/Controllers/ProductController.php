@@ -6,13 +6,12 @@ use Akaunting\Money\Currency;
 use Akaunting\Money\Money;
 use App\DTOs\ProductQuantityPriceDTO;
 use App\Http\Requests\CalculateSellingPriceRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Services\ProductService;
-use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
-
     public function index()
     {
         return ProductResource::collection(Product::all());

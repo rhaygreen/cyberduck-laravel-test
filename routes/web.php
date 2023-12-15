@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::redirect('/dashboard', '/sales');
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function () {
 
     //product routes
     Route::get('/products',
@@ -31,7 +31,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/product/{product}/calculateSellingPrice',
         [ProductController::class, 'calculateSellingPrice']
     )->name('product.selling.price');
-
 
     //Sales routes
     Route::get('/sales', function () {
@@ -51,6 +50,5 @@ Route::middleware(['auth'])->group(function(){
         return view('shipping_partners');
     })->name('shipping.partners');
 });
-
 
 require __DIR__.'/auth.php';

@@ -21,9 +21,9 @@ class ProductSale extends Model
      * @var array
      */
     protected $casts = [
-        'unit_cost'         => MoneyCast::class,
-        'selling_price'     => MoneyCast::class,
-        'created_at'        => 'datetime: Y-m-d H:i:s',
+        'unit_cost' => MoneyCast::class,
+        'selling_price' => MoneyCast::class,
+        'created_at' => 'datetime: Y-m-d H:i:s',
     ];
 
     public function sale(): BelongsTo

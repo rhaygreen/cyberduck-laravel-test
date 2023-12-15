@@ -31,15 +31,15 @@ export default {
     methods: {
         async fetchData() {
             const url = '/sale'
-                await axios.get(url)
-                .then((response) => {
-                    this.data.sales = response.data
+            await axios.get(url)
+            .then((response) => {
+                this.data.sales = response.data
 
-                })
-                .catch(function (error){
-                    alert('Sorry, something went wrong. Please try again');
-                    console.log(error);
-                });
+            })
+            .catch(function (error){
+                alert('Sorry, something went wrong. Please try again');
+                console.log(error);
+            });
         }
     }
 };
