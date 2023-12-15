@@ -1,4 +1,5 @@
 <script>
+import { ButtonElement } from '@vueform/vueform';
 import axios from 'axios';
 
 export default {
@@ -46,6 +47,7 @@ export default {
                 await axios.get(url)
                 .then((response) => this.data.selling_price = response.data )
                 .catch(function (error){
+
                     alert('Sorry, something went wrong. Please try again');
                     console.log(error);
                 });
@@ -133,6 +135,7 @@ export default {
             id="record_sale"
             :disabled="button_disabled"
             @click="recordSale"
+            style="margin-top:29px"
             >{{ button.text }}
         </ButtonElement>
         <StaticElement
