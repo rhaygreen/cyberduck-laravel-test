@@ -23,8 +23,8 @@ class StoreSaleRequest extends FormRequest
     {
         return [
             'id_product' => 'required|numeric|exists:products,id',
-            'quantity' => 'required|numeric|min:0|max:9999',
-            'unit_cost' => 'required|numeric|min:0|max:9999',
+            'quantity' => 'required|numeric|min:0|max:9999|decimal:0,6',
+            'unit_cost' => 'required|numeric|min:0|max:9999|decimal:0,6',
         ];
     }
 }
