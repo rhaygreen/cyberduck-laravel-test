@@ -2,6 +2,7 @@
 import { ButtonElement } from '@vueform/vueform';
 import axios from 'axios';
 
+
 export default {
     props: {
         product_id: {
@@ -39,61 +40,57 @@ export default {
             },
         };
     },
-    mounted() {
-        this.fetchProducts();
-    },
     methods: {
-        async fetchProducts() {
-            const url = '/products'
-                await axios.get(url)
-                .then((response) => {
-                    //this.data.sales = response.data
-
-                })
-                .catch(function (error){
-                    alert('Sorry, something went wrong. Please try again');
-                    console.log(error);
-                });
-        },
         async loadPrice() {
             this.data.selling_price = '';
+            if(this.data.product_id == null){
+                alert('Please select a product');
+                return false;
+            }
             if(!isNaN(parseFloat(this.data.quantity)) && !isNaN(parseFloat(this.data.unit_cost))) {
                 const url = '/product/'+this.data.product_id+'/calculateSellingPrice?quantity='+this.data.quantity+'&unit_cost='+this.data.unit_cost
-                await axios.get(url)
-                .then((response) => this.data.selling_price = response.data )
-                .catch(function (error){
-
-                    alert('Sorry, something went wrong. Please try again');
-                    console.log(error);
-                });
+                try {
+                    await axios.get(url)
+                    .then((response) => this.data.selling_price = response.data )
+                }catch(error) {
+                    alert(error.response.data.message)
+                    console.log(error.response.data.errors);
+                }
             }
         },
         async recordSale() {
+            if(this.data.product_id == null){
+                alert('Please select a product');
+                return false;
+            }
             if(!isNaN(parseFloat(this.data.quantity)) && !isNaN(parseFloat(this.data.unit_cost))) {
                 //add debounce to the button. Remove once request returns.
                 this.data.button_disabled = true;
                 this.button.text = 'Recording...';
 
                 const url = '/sale/store';
-                await axios.post(url,{
+                try {
+                    await axios.post(url,{
                     id_product: this.data.product_id,
                     quantity: this.data.quantity,
                     unit_cost: this.data.unit_cost
 
-                })
-                .then((response) => {
+                    })
+                    .then((response) => {
+                        this.data.button_disabled = false;
+                        this.button.text = 'Record Sale';
+                        //ensure the message has a unique timestamp, so recieving components know it has changed
+                        let now = new Date();
+                        //emit event so table of existing sales knows to update
+                        this.$emit('sale-made', now.valueOf())
+                        alert('Sale recorded successfully');
+                    })
+                }catch(error) {
+                    alert(error.response.data.message)
+                    console.log(error.response.data.errors);
                     this.data.button_disabled = false;
                     this.button.text = 'Record Sale';
-                    //ensure the message has a unique timestamp, so recieving components know it has changed
-                    let now = new Date();
-                    this.$emit('sale-made', now.valueOf())
-                })
-                .catch((error) => {
-                    alert('Sorry, something went wrong. Please try again');
-                    console.log(error);
-                    this.data.button_disabled = false;
-                    this.button.text = 'Record Sale';
-                });
+                }
             }
             else {
                 //@todo this would be better as a modal
