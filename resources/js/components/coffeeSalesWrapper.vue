@@ -4,10 +4,9 @@ import existingCoffeeSales from './existingCoffeeSales.vue';
 
 export default {
         components: {newCoffeeSale, existingCoffeeSales},
-
         data() {
             return {
-                thecardtitle: 'Parent Component!',
+                thecardtitle: 'Parent Component',
                 message: ''
             }
         },

@@ -3,38 +3,46 @@ import axios from 'axios';
 import watch from 'vue';
 
 export default {
-  props: ['message'],
-  data() {
-    return {
-        data: {
-            sales: []
+    props: {
+        open: {
+            type: String,
+            default: ''
         },
-    };
-  },
-  mounted() {
-    this.fetchData();
-  },
-  watch: {
-    message: function() {
+        message: {
+            type: String,
+            default: ''
+        },
+    },
+    data() {
+        return {
+            data: {
+                sales: []
+            },
+        };
+    },
+    mounted() {
         this.fetchData();
-    }
-  },
-  methods: {
-    async fetchData() {
-        const url = '/sale'
-            await axios.get(url)
-            .then((response) => {
-                console.log(response.data);
-                this.data.sales = response.data
+    },
+    watch: {
+        message: function() {
+            this.fetchData();
+        }
+    },
+    methods: {
+        async fetchData() {
+            const url = '/sale'
+                await axios.get(url)
+                .then((response) => {
+                    console.log(response.data);
+                    this.data.sales = response.data
 
-            })
-            .catch(function (error){
-                alert('Sorry, something went wrong. Please try again');
-                console.log(error);
-            });
+                })
+                .catch(function (error){
+                    alert('Sorry, something went wrong. Please try again');
+                    console.log(error);
+                });
+        }
     }
-  }
-
 };
 
 </script>
