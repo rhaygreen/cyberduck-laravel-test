@@ -16,11 +16,6 @@ class ProductController extends Controller
     public function index()
     {
         return ProductResource::collection(Product::all());
-
-        //return response()->json([
-        //    ['label' => 'Gold', 'value' => 1],
-        //    ['label' => 'Arabic','value' => 2]
-        //]);
     }
 
     public function calculateSellingPrice(CalculateSellingPriceRequest $request, Product $product)
@@ -30,6 +25,6 @@ class ProductController extends Controller
 
         $dto = new ProductQuantityPriceDTO($product, $request->quantity, $unitCost);
 
-        return $service->calculateSellingPrice($dto)->format();
+        return response()->json($service->calculateSellingPrice($dto)->format());
     }
 }

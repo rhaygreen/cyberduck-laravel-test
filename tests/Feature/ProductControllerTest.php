@@ -43,7 +43,7 @@ class ProductControllerTest extends TestCase
         $response = $this->actingAs($user)
             ->get('/product/1/calculateSellingPrice?quantity=2&unit_cost=20.5');
         $response->assertStatus(200);
-        $this->assertEquals($response->getContent(), '£64.67');
+        $response->assertJsonFragment(['£64.67']);
 
     }
 }
