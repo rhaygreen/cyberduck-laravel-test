@@ -2,21 +2,20 @@
 
 namespace Tests\Unit;
 
+use Akaunting\Money\Currency;
+use Akaunting\Money\Money;
+use App\DTOs\ProductQuantityPriceDTO;
+use App\Models\Product;
 use App\Services\ProductService;
 use PHPUnit\Framework\TestCase;
-use App\Models\Product;
-use Akaunting\Money\Money;
-use Akaunting\Money\Currency;
-use App\DTOs\ProductQuantityPriceDTO;
-use SebastianBergmann\Type\TrueType;
 
 class ProductServiceTest extends TestCase
 {
     public function testSellingPriceCalculation_validProductAndIntegerQuantityOfOne_ReturnValidPrice()
     {
         $product = Product::factory()->make([
-            'name'          => 'Gold Coffee',
-            'margin'        => 25,
+            'name' => 'Gold Coffee',
+            'margin' => 25,
             'shipping_cost' => new Money(1000, new Currency('GBP')),
         ]);
         $unitPrice = new Money(1000, new Currency('GBP'));
@@ -34,8 +33,8 @@ class ProductServiceTest extends TestCase
     public function testSellingPriceCalculation_validProductAndIntegerQuantityOfTwo_ReturnValidPrice()
     {
         $product = Product::factory()->make([
-            'name'          => 'Gold Coffee',
-            'margin'        => 25,
+            'name' => 'Gold Coffee',
+            'margin' => 25,
             'shipping_cost' => new Money(1000, new Currency('GBP')),
         ]);
         $unitPrice = new Money(2050, new Currency('GBP'));
@@ -53,8 +52,8 @@ class ProductServiceTest extends TestCase
     public function testSellingPriceCalculation_validProductAndIntegerQuantityOfFive_ReturnValidPrice()
     {
         $product = Product::factory()->make([
-            'name'          => 'Gold Coffee',
-            'margin'        => 25,
+            'name' => 'Gold Coffee',
+            'margin' => 25,
             'shipping_cost' => new Money(1000, new Currency('GBP')),
         ]);
         $unitPrice = new Money(1200, new Currency('GBP'));

@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained();
             $table->foreignId('sale_id')->constrained();
-            $table->double('quantity',8,2,true);
-            $table->integer('unit_cost',false, true);
-            $table->integer('selling_price',false,true);
+            $table->double('quantity', 8, 2, true);
+            $table->integer('unit_cost', false, true);
+            $table->integer('selling_price', false, true);
             $table->timestamps();
-
 
         });
     }

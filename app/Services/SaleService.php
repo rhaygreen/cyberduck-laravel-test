@@ -3,12 +3,10 @@
 namespace App\Services;
 
 use App\DTOs\ProductQuantityPriceDTO;
-use Illuminate\Support\Facades\DB;
-use App\Models\Sale;
 use App\Models\ProductSale;
+use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
-use App\Services\ProductService;
-
+use Illuminate\Support\Facades\DB;
 
 class SaleService
 {

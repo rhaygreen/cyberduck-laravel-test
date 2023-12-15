@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Akaunting\Money\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Akaunting\Money\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ProductSale extends Model

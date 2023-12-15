@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Akaunting\Money\Money;
 use Akaunting\Money\Currency;
-use Illuminate\Database\Seeder;
+use Akaunting\Money\Money;
 use App\Models\Product;
+use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
 {
@@ -15,10 +15,10 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::factory()->create([
-            'id'            => 1,
-            'name'          => 'Gold Coffee',
-            'margin'        => 25, //percentage
-            'shipping_cost' => new Money(1000, new Currency('GBP'))
+            'id' => 1,
+            'name' => 'Gold Coffee',
+            'margin' => 25, //percentage
+            'shipping_cost' => new Money(1000, new Currency('GBP')),
         ]);
     }
 }

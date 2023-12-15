@@ -23,7 +23,7 @@ class CalculateSellingPriceRequest extends FormRequest
     {
         return [
             'quantity' => 'required|numeric|min:0|max:9999',
-            'unit_cost' => 'required|numeric|min:0|max:9999'
+            'unit_cost' => 'required|numeric|min:0|max:9999',
         ];
     }
 }

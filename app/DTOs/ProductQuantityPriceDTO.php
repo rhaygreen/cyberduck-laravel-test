@@ -2,8 +2,8 @@
 
 namespace App\DTOs;
 
-use App\Models\Product;
 use Akaunting\Money\Money;
+use App\Models\Product;
 
 class ProductQuantityPriceDTO
 {
@@ -11,7 +11,8 @@ class ProductQuantityPriceDTO
         private Product $product,
         private int $quantity,
         private Money $unitPrice,
-        ) {}
+    ) {
+    }
 
     public function getProduct()
     {

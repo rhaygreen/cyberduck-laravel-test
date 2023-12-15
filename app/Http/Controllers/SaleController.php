@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CalculateSellingPriceRequest;
-use App\Http\Requests\StoreSaleRequest;
-use App\Http\Requests\UpdateSaleRequest;
-use App\Models\Product;
-use App\Models\ProductSale;
-use App\Models\Sale;
-use App\Services\SaleService;
 use Akaunting\Money\Currency;
 use Akaunting\Money\Money;
 use App\DTOs\ProductQuantityPriceDTO;
+use App\Http\Requests\StoreSaleRequest;
+use App\Http\Requests\UpdateSaleRequest;
+use App\Models\Product;
+use App\Models\Sale;
+use App\Services\SaleService;
 
 class SaleController extends Controller
 {
@@ -38,8 +36,9 @@ class SaleController extends Controller
     {
         $product = Product::findOrFail($request->id_product);
         $service = new SaleService();
-        $unitCost= new Money(trim($request->unit_cost,".,"), new Currency('GBP'), true);
+        $unitCost = new Money(trim($request->unit_cost, '.,'), new Currency('GBP'), true);
         $dto = new ProductQuantityPriceDTO($product, $request->quantity, $unitCost);
+
         return $service->createSale($dto);
     }
 

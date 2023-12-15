@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->char('name',100);
-            $table->double('margin',6,2,true);
-            $table->integer('shipping_cost',false,true);
+            $table->char('name', 100);
+            $table->double('margin', 6, 2, true);
+            $table->integer('shipping_cost', false, true);
             $table->timestamps();
         });
     }

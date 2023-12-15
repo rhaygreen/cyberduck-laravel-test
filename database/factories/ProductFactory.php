@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Akaunting\Money\Money;
 use Akaunting\Money\Currency;
+use Akaunting\Money\Money;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -19,9 +19,9 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'          => fake()->name(),
-            'margin'        => fake()->randomNumber(2),
-            'shipping_cost' => new Money(fake()->randomNumber(4), new Currency('GBP'), true)
+            'name' => fake()->name(),
+            'margin' => fake()->randomNumber(2),
+            'shipping_cost' => new Money(fake()->randomNumber(4), new Currency('GBP'), true),
         ];
     }
 }

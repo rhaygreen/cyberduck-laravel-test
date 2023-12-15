@@ -31,5 +31,4 @@ class Sale extends Model
             'sale_id',
         );
     }
-
 }
