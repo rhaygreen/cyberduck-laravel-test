@@ -16,3 +16,9 @@ Areas for improvement - Part one
 4. Whilst there are error messages when calculating the selling price, there is currently nothing if the user clicks the 'Record Sale' with invalid data. The back end will generate errors, but the front end currently has no way to display these. 
 5. Some sort of flash 'confirmation' message when a sale is successfully recorded.
 
+Part 2
+1. Responses from the server for existing sales is returning more data than required.
+2. Request for selling price should be JSON formatted, currenctly it is just plain text.
+3. Dates and time are controlled by the server. Ideally, the code would ensure these are in UTC.
+4. Pagination on the 'existing coffee sales' table would be useful.
+

@@ -5,7 +5,7 @@ namespace App\Models;
 use Akaunting\Money\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductSale extends Model
 {
@@ -21,17 +21,18 @@ class ProductSale extends Model
      * @var array
      */
     protected $casts = [
-        'unit_cost' => MoneyCast::class,
-        'selling_price' => MoneyCast::class,
+        'unit_cost'         => MoneyCast::class,
+        'selling_price'     => MoneyCast::class,
+        'created_at'        => 'datetime: Y-m-d H:i:s',
     ];
 
-    public function sale(): HasOne
+    public function sale(): BelongsTo
     {
-        return $this->hasOne(Sale::class);
+        return $this->belongsTo(Sale::class);
     }
 
-    public function product(): HasOne
+    public function product(): BelongsTo
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

@@ -18,7 +18,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        return Sale::with('productSales', 'products')->orderBy('created_at', 'desc')->get();
+        return Sale::with('productSales', 'productSales.product')->orderBy('created_at', 'desc')->get();
     }
 
     /**
