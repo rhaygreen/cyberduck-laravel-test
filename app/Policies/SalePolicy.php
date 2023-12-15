@@ -12,7 +12,7 @@ class SalePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -20,7 +20,7 @@ class SalePolicy
      */
     public function view(User $user, Sale $sale): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -28,7 +28,7 @@ class SalePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -36,7 +36,7 @@ class SalePolicy
      */
     public function update(User $user, Sale $sale): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -44,7 +44,7 @@ class SalePolicy
      */
     public function delete(User $user, Sale $sale): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -52,7 +52,7 @@ class SalePolicy
      */
     public function restore(User $user, Sale $sale): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -60,6 +60,6 @@ class SalePolicy
      */
     public function forceDelete(User $user, Sale $sale): bool
     {
-        //
+        return true;
     }
 }
