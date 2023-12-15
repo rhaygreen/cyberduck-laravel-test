@@ -21,28 +21,36 @@ Route::get('/', function () {
 
 Route::redirect('/dashboard', '/sales');
 
-Route::get('/sales', function () {
-    return view('coffee_sales');
-})->middleware(['auth'])->name('coffee.sales');
+Route::middleware(['auth'])->group(function(){
 
-Route::get('/sale',
-    [SaleController::class, 'index']
-)->middleware(['auth'])->name('sale.index');
+    //product routes
+    Route::get('/products',
+        [ProductController::class, 'index']
+    )->name('product.index');
 
-Route::post('/sale/store',
-    [SaleController::class, 'store']
-)->middleware(['auth'])->name('sale.store');
+    Route::get('/product/{product}/calculateSellingPrice',
+        [ProductController::class, 'calculateSellingPrice']
+    )->name('product.selling.price');
 
-Route::get('/products',
-    [ProductController::class, 'index']
-)->middleware(['auth'])->name('product.index');
 
-Route::get('/product/{product}/calculateSellingPrice',
-    [ProductController::class, 'calculateSellingPrice']
-)->middleware(['auth'])->name('product.selling.price');
+    //Sales routes
+    Route::get('/sales', function () {
+        return view('coffee_sales');
+    })->name('coffee.sales');
 
-Route::get('/shipping-partners', function () {
-    return view('shipping_partners');
-})->middleware(['auth'])->name('shipping.partners');
+    Route::get('/sale',
+        [SaleController::class, 'index']
+    )->name('sale.index');
+
+    Route::post('/sale/store',
+        [SaleController::class, 'store']
+    )->name('sale.store');
+
+    //shipping partner routes
+    Route::get('/shipping-partners', function () {
+        return view('shipping_partners');
+    })->name('shipping.partners');
+});
+
 
 require __DIR__.'/auth.php';
