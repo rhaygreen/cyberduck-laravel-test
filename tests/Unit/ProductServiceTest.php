@@ -8,6 +8,7 @@ use App\Models\Product;
 use Akaunting\Money\Money;
 use Akaunting\Money\Currency;
 use App\DTOs\ProductQuantityPriceDTO;
+use SebastianBergmann\Type\TrueType;
 
 class ProductServiceTest extends TestCase
 {
@@ -16,9 +17,9 @@ class ProductServiceTest extends TestCase
         $product = Product::factory()->make([
             'name'          => 'Gold Coffee',
             'margin'        => 25,
-            'shipping_cost' => new Money('10.00', new Currency('GBP')),
+            'shipping_cost' => new Money(1000, new Currency('GBP')),
         ]);
-        $unitPrice = new Money('10.00', new Currency('GBP'));
+        $unitPrice = new Money(1000, new Currency('GBP'));
         $quantity = 1;
         $service = new ProductService();
 
@@ -27,7 +28,7 @@ class ProductServiceTest extends TestCase
         $result = $service->calculateSellingPrice($dto);
 
         $this->assertInstanceOf(Money::class, $result);
-        $this->assertEquals($result->getAmount(), '23.34');
+        $this->assertEquals($result->getValue(), 23.34);
     }
 
     public function testSellingPriceCalculation_validProductAndIntegerQuantityOfTwo_ReturnValidPrice()
@@ -35,9 +36,9 @@ class ProductServiceTest extends TestCase
         $product = Product::factory()->make([
             'name'          => 'Gold Coffee',
             'margin'        => 25,
-            'shipping_cost' => new Money('10.00', new Currency('GBP')),
+            'shipping_cost' => new Money(1000, new Currency('GBP')),
         ]);
-        $unitPrice = new Money('20.50', new Currency('GBP'));
+        $unitPrice = new Money(2050, new Currency('GBP'));
         $quantity = 2;
         $service = new ProductService();
 
@@ -46,7 +47,7 @@ class ProductServiceTest extends TestCase
         $result = $service->calculateSellingPrice($dto);
 
         $this->assertInstanceOf(Money::class, $result);
-        $this->assertEquals($result->getAmount(), '64.67');
+        $this->assertEquals($result->getValue(), 64.67);
     }
 
     public function testSellingPriceCalculation_validProductAndIntegerQuantityOfFive_ReturnValidPrice()
@@ -54,9 +55,9 @@ class ProductServiceTest extends TestCase
         $product = Product::factory()->make([
             'name'          => 'Gold Coffee',
             'margin'        => 25,
-            'shipping_cost' => new Money('10.00', new Currency('GBP')),
+            'shipping_cost' => new Money(1000, new Currency('GBP')),
         ]);
-        $unitPrice = new Money('12.00', new Currency('GBP'));
+        $unitPrice = new Money(1200, new Currency('GBP'));
         $quantity = 5;
         $service = new ProductService();
 
@@ -65,6 +66,6 @@ class ProductServiceTest extends TestCase
         $result = $service->calculateSellingPrice($dto);
 
         $this->assertInstanceOf(Money::class, $result);
-        $this->assertEquals($result->getAmount(), '90.00');
+        $this->assertEquals($result->getValue(), 90.00);
     }
 }
