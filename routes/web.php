@@ -33,6 +33,10 @@ Route::post('/sale/store',
     [SaleController::class, 'store']
 )->middleware(['auth'])->name('sale.store');
 
+Route::get('/products',
+    [ProductController::class, 'index']
+)->middleware(['auth'])->name('product.index');
+
 Route::get('/product/{product}/calculateSellingPrice',
     [ProductController::class, 'calculateSellingPrice']
 )->middleware(['auth'])->name('product.selling.price');

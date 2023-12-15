@@ -39,7 +39,22 @@ export default {
             },
         };
     },
+    mounted() {
+        this.fetchProducts();
+    },
     methods: {
+        async fetchProducts() {
+            const url = '/products'
+                await axios.get(url)
+                .then((response) => {
+                    //this.data.sales = response.data
+
+                })
+                .catch(function (error){
+                    alert('Sorry, something went wrong. Please try again');
+                    console.log(error);
+                });
+        },
         async loadPrice() {
             this.data.selling_price = '';
             if(!isNaN(parseFloat(this.data.quantity)) && !isNaN(parseFloat(this.data.unit_cost))) {
@@ -84,6 +99,11 @@ export default {
                 //@todo this would be better as a modal
                 alert('Please provide valid quantity and unit costs. Both must be numbers, decimals are allowed.');
             }
+        },
+        blankFields() {
+            this.data.quantity = '';
+            this.data.unit_cost = '';
+            this.data.selling_price = '';
         }
     }
 
@@ -93,10 +113,19 @@ export default {
 
 <template>
     <div>
-      <Vueform columns="16" v-model="data" sync>
-        <HiddenElement name="product_id" value="1" v-model="product_id"/>
+      <Vueform columns="20" v-model="data" sync>
+        <SelectElement
+            :columns="{ container: 2, label: 12, wrapper: 12 }"
+            :native="false"
+            size="md"
+            label="Product"
+            name="product_id"
+            id="product_id"
+            items="/products"
+            :on-change="blankFields"
+        />
         <TextElement
-            :columns="{ container: 3, label: 12, wrapper: 12 }"
+            :columns="{ container: 2, label: 12, wrapper: 12 }"
             :attrs="{ autofocus: true }"
             name="quantity"
             id="quantity"
@@ -107,7 +136,7 @@ export default {
         />
 
         <TextElement
-            :columns="{ container: 3, label: 12, wrapper: 12}"
+            :columns="{ container: 2, label: 12, wrapper: 12}"
             :add-class="{
             input: 'pt-6'
             }"
@@ -121,7 +150,7 @@ export default {
 
         <TextElement
             :readonly="true"
-            :columns="{ container: 3, label: 12, wrapper: 12 }"
+            :columns="{ container: 2, label: 12, wrapper: 12 }"
             name="selling_price"
             id="selling_price"
             size="md"

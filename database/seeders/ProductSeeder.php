@@ -20,5 +20,12 @@ class ProductSeeder extends Seeder
             'margin' => 25, //percentage
             'shipping_cost' => new Money(1000, new Currency('GBP')),
         ]);
+
+        Product::factory()->create([
+            'id' => 2,
+            'name' => 'Arabic Coffee',
+            'margin' => 15, //percentage
+            'shipping_cost' => new Money(1000, new Currency('GBP')),
+        ]);
     }
 }

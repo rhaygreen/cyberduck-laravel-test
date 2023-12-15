@@ -33,7 +33,6 @@ export default {
             const url = '/sale'
                 await axios.get(url)
                 .then((response) => {
-                    console.log(response.data);
                     this.data.sales = response.data
 
                 })

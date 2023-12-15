@@ -8,9 +8,21 @@ use App\DTOs\ProductQuantityPriceDTO;
 use App\Http\Requests\CalculateSellingPriceRequest;
 use App\Models\Product;
 use App\Services\ProductService;
+use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
+
+    public function index()
+    {
+        return ProductResource::collection(Product::all());
+
+        //return response()->json([
+        //    ['label' => 'Gold', 'value' => 1],
+        //    ['label' => 'Arabic','value' => 2]
+        //]);
+    }
+
     public function calculateSellingPrice(CalculateSellingPriceRequest $request, Product $product)
     {
         $service = new ProductService();
