@@ -9,7 +9,7 @@ class ProductQuantityPriceDTO
 {
     public function __construct(
         private Product $product,
-        private int $quantity,
+        private float $quantity,
         private Money $unitPrice,
     ) {
     }

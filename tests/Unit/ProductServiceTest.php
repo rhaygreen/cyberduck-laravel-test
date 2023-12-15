@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProductServiceTest extends TestCase
 {
-    public function testSellingPriceCalculation_validProductAndIntegerQuantityOfOne_ReturnValidPrice()
+    public function testSellingPriceCalculation_validProductMargin25Quantity1_ReturnValidPrice()
     {
         $product = Product::factory()->make([
             'name' => 'Gold Coffee',
@@ -30,7 +30,7 @@ class ProductServiceTest extends TestCase
         $this->assertEquals($result->getValue(), 23.34);
     }
 
-    public function testSellingPriceCalculation_validProductAndIntegerQuantityOfTwo_ReturnValidPrice()
+    public function testSellingPriceCalculation_validProductMargin25Quantity2_ReturnValidPrice()
     {
         $product = Product::factory()->make([
             'name' => 'Gold Coffee',
@@ -49,7 +49,7 @@ class ProductServiceTest extends TestCase
         $this->assertEquals($result->getValue(), 64.67);
     }
 
-    public function testSellingPriceCalculation_validProductAndIntegerQuantityOfFive_ReturnValidPrice()
+    public function testSellingPriceCalculation_validProductMargin25Quantity5_ReturnValidPrice()
     {
         $product = Product::factory()->make([
             'name' => 'Gold Coffee',
@@ -66,5 +66,62 @@ class ProductServiceTest extends TestCase
 
         $this->assertInstanceOf(Money::class, $result);
         $this->assertEquals($result->getValue(), 90.00);
+    }
+
+    public function testSellingPriceCalculation_validProductMargin15Quantity5_ReturnValidPrice()
+    {
+        $product = Product::factory()->make([
+            'name' => 'Arabic Coffee',
+            'margin' => 15,
+            'shipping_cost' => new Money(1000, new Currency('GBP')),
+        ]);
+        $unitPrice = new Money(1200, new Currency('GBP'));
+        $quantity = 5;
+        $service = new ProductService();
+
+        $dto = new ProductQuantityPriceDTO($product, $quantity, $unitPrice);
+
+        $result = $service->calculateSellingPrice($dto);
+
+        $this->assertInstanceOf(Money::class, $result);
+        $this->assertEquals($result->getValue(), 80.59);
+    }
+
+    public function testSellingPriceCalculation_validProductMargin15Quantity10Decimal5_ReturnValidPrice()
+    {
+        $product = Product::factory()->make([
+            'name' => 'Arabic Coffee',
+            'margin' => 15,
+            'shipping_cost' => new Money(1000, new Currency('GBP')),
+        ]);
+        $unitPrice = new Money(1000, new Currency('GBP'));
+        $quantity = 10.5;
+        $service = new ProductService();
+
+        $dto = new ProductQuantityPriceDTO($product, $quantity, $unitPrice);
+
+        $result = $service->calculateSellingPrice($dto);
+
+        $this->assertInstanceOf(Money::class, $result);
+        $this->assertEquals($result->getValue(), 133.53);
+    }
+
+    public function testSellingPriceCalculation_validProductMargin15Quantity10UnitCost1078_ReturnValidPrice()
+    {
+        $product = Product::factory()->make([
+            'name' => 'Arabic Coffee',
+            'margin' => 15,
+            'shipping_cost' => new Money(1000, new Currency('GBP')),
+        ]);
+        $unitPrice = new Money(1078, new Currency('GBP'));
+        $quantity = 10;
+        $service = new ProductService();
+
+        $dto = new ProductQuantityPriceDTO($product, $quantity, $unitPrice);
+
+        $result = $service->calculateSellingPrice($dto);
+
+        $this->assertInstanceOf(Money::class, $result);
+        $this->assertEquals($result->getValue(), 136.83);
     }
 }
